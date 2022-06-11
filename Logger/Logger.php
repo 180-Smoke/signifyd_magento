@@ -7,6 +7,8 @@
 
 namespace Signifyd\Connect\Logger;
 
+use Monolog\DateTimeImmutable;
+use Monolog\Level;
 use Signifyd\Connect\Helper\ConfigHelper;
 
 class Logger extends \Monolog\Logger
@@ -41,12 +43,14 @@ class Logger extends \Monolog\Logger
     }
 
     /**
-     * @param int $level
-     * @param string $message
-     * @param array $context
+     * @param int|Level              $level
+     * @param string                 $message
+     * @param array                  $context
+     * @param DateTimeImmutable|null $datetime
+     *
      * @return bool
      */
-    public function addRecord(int $level, string $message, array $context = []): bool
+    public function addRecord(int|Level $level, string $message, array $context = [], DateTimeImmutable $datetime = null): bool
     {
         if (isset($context['entity'])) {
             $log = $this->configHelper->getConfigData('signifyd/logs/log', $context['entity']);
