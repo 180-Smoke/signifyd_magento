@@ -43,14 +43,14 @@ class Logger extends \Monolog\Logger
     }
 
     /**
-     * @param int|Level              $level
+     * @param int              $level
      * @param string                 $message
      * @param array                  $context
      * @param DateTimeImmutable|null $datetime
      *
      * @return bool
      */
-    public function addRecord(int|Level $level, string $message, array $context = [], DateTimeImmutable $datetime = null): bool
+    public function addRecord(int $level, string $message, array $context = [], DateTimeImmutable $datetime = null): bool
     {
         if (isset($context['entity'])) {
             $log = $this->configHelper->getConfigData('signifyd/logs/log', $context['entity']);
@@ -63,6 +63,6 @@ class Logger extends \Monolog\Logger
             return false;
         }
 
-        return parent::addRecord($level, $message, $context);
+        return parent::addRecord($level, $message, $context, $datetime);
     }
 }
